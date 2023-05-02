@@ -2,11 +2,41 @@
 title: "Typing Speed vs. Keyboard Type"
 author: "Marcos Fassio Bazzi, Santiago Villaroel"
 date: "2023-05-02"
-output: pdf_document
+output:
+    pdf_document:
+        toc: true
+        toc_depth: 3
+        number_sections: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# hello
+\newpage
+
+# Abstract
+
+In a field such as data analytics or statistics where typing speed is directly correlated to work productivity, both employers and employees tend to find the best methods to increase typing speed. This research project aims to determine what type of keyboard produces the best typing speed. This experiment uses a Latin-Squares Block Design to better determine the relationship between typing speed, the operator, and the order at which the operator uses the keyboard and collects data. The results show that **insert results here**. In conclusion, **insert conclusion here**.
+
+# Introduction
+
+The idea for this experiment was formulated from a need to find the best ways for Computational Modeling and Data Analytics (CMDA) majors like us to be as productive as possible when working on their projects and assignments. In a career where typing speed directly leads to better performance at work, we wanted to find the best relationship between typing speed and the type of keyboard to use.
+
+To best answer this question, we used three different types of keyboards to measure typing speed: rubber dome, membrane and mechanical. Rubber dome keyboards uses a rubber dome to register an action and are commonly found in office spaces. Membrane keyboards are pressure pads that use electrical feedback to register an action, and are commonly found on laptops. Mechanical keyboards are higher-end keyboards that are designed to register keyboard actions with as little movement as possible. They're commonly found in both office and home setups.
+
+# Methods
+
+To best compare the different keyboards, we set up a Latin-Squares Block Design with three replications for the most accurate results. Our treatment factor is the type of keyboard while our blocking factors are the users and the order at which keyboards we type with for optimal accuracy. 
+
+## Materials
+
+Listed below are the keyboards we used for the experiment:
+
+* Rubber dome: Logitech K270
+* Membrane: Surface Laptop 4 keyboard
+* Mechanical: NovelKeys NK87 with Gateron Oil King linear switches
+
+We used [monkeytype.com](https://monkeytype.com/) to record our typing speed. For the experiment, we set the settings on **time** and let the typing test run for 60 seconds.
+
+## Procedure
