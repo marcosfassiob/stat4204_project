@@ -1,0 +1,12 @@
+---
+title: "Typing Speed vs. Keyboard Type"
+author: "Marcos Fassio Bazzi, Santiago Villaroel"
+date: "2023-05-02"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# hello
