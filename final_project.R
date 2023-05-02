@@ -1,5 +1,5 @@
 library(readxl)
-kb <- read_excel("Classes/Spring 2023/STAT 4204/keyboard.xlsx")
+kb <- read_excel("C:\\Users\\turtl\\Documents\\Classes\\Spring 2023\\STAT 4204\\project\\stat4204_project\\keyboard.xlsx")
 
 kb$Operator = as.factor(kb$Operator)
 kb$Order = as.factor(kb$Order)
