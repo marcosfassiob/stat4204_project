@@ -54,7 +54,7 @@ new.data = data.frame(res, Type, Operator, Order)
 library("ggpubr")
 ggline(new.data, x = "Type", y = "res", 
        add = c("mean_se", "jitter"), 
-       order = c("Mechanical","Scissor-Switch","Dome-Switch"),
+       order = c("Mechanical","Scissor","Dome"),
        ylab = "Residuals", xlab = "Keyboard Type")
 
 ggline(new.data, x = "Operator", y = "res", 
