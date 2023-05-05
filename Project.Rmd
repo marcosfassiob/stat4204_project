@@ -11,6 +11,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
 ```
 
 \newpage
@@ -83,6 +84,22 @@ After gathering our resources and setting the experiment up, we had our first op
 This process was repeated three times.
 
 # Observations
+
+```{r, echo = FALSE}
+library(readxl)
+kb <- read_excel("C:\\Users\\marco\\Desktop\\STAT 4204\\Project\\keyboard.xlsx")
+
+# Setting factors
+kb$Operator = as.factor(kb$Operator)
+kb$Order = as.factor(kb$Order)
+kb$`Keyboard Type` = as.factor(kb$`Keyboard Type`)
+
+# Boxplots of our parameters with the response variable Typing Speed
+par(mfrow=c(1,3))
+boxplot(`Typing Speed` ~ Operator, data = kb)
+boxplot(`Typing Speed` ~ Order, data = kb)
+boxplot(`Typing Speed` ~ `Keyboard Type`, data = kb)
+```
 
 # Results
 

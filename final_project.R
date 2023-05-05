@@ -1,5 +1,5 @@
 library(readxl)
-kb <- read_excel("C:\\Users\\turtl\\Documents\\Classes\\Spring 2023\\STAT 4204\\project\\stat4204_project\\keyboard.xlsx")
+kb <- read_excel(file.choose())
 
 # Setting factors
 kb$Operator = as.factor(kb$Operator)
