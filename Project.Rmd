@@ -7,7 +7,6 @@ output:
         toc: true
         toc_depth: 2
         number_sections: true
-        extra_dependencies: ["multirow"]
 ---
 
 ```{r setup, include=FALSE}
@@ -70,7 +69,8 @@ where $i$ refers to the order at which the operator uses each keyboard, $j$ refe
 
 ## Assumptions
 
-For our experimental design, we're assuming that our typing test uses random, lowercase letters with no numbers or symbols. We're assuming that each keyboard works perfectly fine and that every operator is an experienced typist majoring or working in a field that requires extensive keyboard use.
+For our experimental design, we're assuming that our typing test uses random, lowercase letters with no numbers or symbols. We're assuming that each keyboard works perfectly fine and that every operator is an experienced typist majoring or working in a field that requires extensive keyboard use. We 
+also assume that the three factors in the design do not interact with each other.
 
 To make this experimental model as accurate as possible, we are assuming that these three assumptions are satisfied:
 
@@ -147,7 +147,7 @@ A = Dome & B = Scissor & C = Mechanical
 After collecting our observations, we wanted to see the different treatment and blocking factors' effects with our response vairable, the operator's WPM. We did so by creating three side-by-side boxplots showing the difference between the operator, the order, the type of keyboard, and the typing speed.
 
 ```{r, echo = FALSE}
-kb <- read_excel("C:\\Users\\marco\\Desktop\\STAT 4204\\Project\\keyboard.xlsx")
+kb <- read_excel("C:\\Users\\turtl\\Documents\\Classes\\Spring 2023\\STAT 4204\\project\\stat4204_project\\keyboard.xlsx")
 
 # Setting factors
 kb$Operator = as.factor(kb$Operator)
