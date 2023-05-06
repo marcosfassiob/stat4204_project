@@ -5,13 +5,16 @@ date: "2023-05-02"
 output:
     pdf_document:
         toc: true
-        toc_depth: 3
+        toc_depth: 2
         number_sections: true
+        extra_dependencies: ["multirow"]
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
+library(stargazer)
+library(car)
 ```
 
 \newpage
@@ -44,9 +47,40 @@ To best answer this question, we used three different types of keyboards to meas
     \end{minipage}\hfill
 \end{figure}
 
-# Methods
+# Experimental Design & Methods
 
-To best compare the different keyboards, we set up a Latin-Squares Block Design with three replications for the most accurate results. Our treatment factor is the type of keyboard while our blocking factors are the users and the order at which keyboards we type with for optimal accuracy. Our response factor is the words per minute (WPM) the operator types at.
+To best compare the different keyboards, we set up a Latin-Squares Block Design with three replications for the most accurate results. Our treatment factor is the type of keyboard while our blocking factors are the users and the order at which keyboards we type with for optimal accuracy. Our response variable is the words per minute (WPM) the operator types at. Our sample size, in summary, is three replications of three operators using three keyboards each, totaling to $3^3$ or $27$ entries.
+
+\newpage
+
+## Statistical Model
+
+The statistical model of a Latin-Squares Block Design is as follows:
+
+$$
+y_{ijk} = \mu + \alpha_i + \tau_j + \beta_k + \epsilon_{ijk} 
+\begin{cases} 
+    i = 0, \dots, 3 \\ 
+    j = 0, \dots, 3 \\
+    k = 0, \dots, 3
+\end{cases}
+$$
+
+where $i$ refers to the order at which the operator uses each keyboard, $j$ refers to the keyboard type and $k$ refers to the operator. As for the model itself, $y_{ijk}$ is the observation in the $i^{th}$ row and $k^{th}$ column for the $j^{th}$ treatment, $\mu$ is the population mean, $\alpha_i$ is the $i^{th}$ row effect, $\tau_j$ is the $j^{th}$ treatment effect and $\beta_k$ is the $k^{th}$ column effect. $\epsilon_{ijk}$ is the random error.
+
+## Assumptions
+
+For our experimental design, we're assuming that our typing test uses random, lowercase letters with no numbers or symbols. We're assuming that each keyboard works perfectly fine and that every operator is an experienced typist majoring or working in a field that requires extensive keyboard use.
+
+To make this experimental model as accurate as possible, we are assuming that these three assumptions are satisfied:
+
+* Constant variance
+* Independent samples
+* Normal distribution
+
+## Hypothesis
+
+We hypothesize that the keyboard type will be a significant effect on the operator's typing speed. Furthermore, we also believe that the operator themselves will also have a significant effect on the operator's typing speed. Additionally, we also do not expect the order to have a significant effect on the operator's typing speed.
 
 ## Materials
 
@@ -83,10 +117,36 @@ After gathering our resources and setting the experiment up, we had our first op
 
 This process was repeated three times.
 
-# Observations
+# Observations & Results
+
+## Observations
+
+Once we collected our data, this was what our Latin-Squares Block Design looked like after all three replications:
+
+\begin{table}[!htbp] \centering 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Testing Order & \multicolumn{3}{c}{Operator:} \\ 
+\cline{2-4} 
+\\[-1.8ex] & 1 & 2 & 3 \\ 
+\hline \\[-1.8ex] 
+ 1 & A = 69,75,84 & C = 76,74,69 & B = 97,97,100\\ 
+  & & \\ 
+ 2 & B = 81,86,72 & A = 83,85,76 & C = 99,98,88\\ 
+  & & \\ 
+ 3 & C = 73,83,83 & B = 84,80,87 & A = 98,103,96\\ 
+  & & \\ 
+
+\hline \\[-1.8ex] 
+A = Dome & B = Scissor & C = Mechanical
+\end{tabular} 
+\end{table} 
+
+After collecting our observations, we wanted to see the different treatment and blocking factors' effects with our response vairable, the operator's WPM. We did so by creating three side-by-side boxplots showing the difference between the operator, the order, the type of keyboard, and the typing speed.
 
 ```{r, echo = FALSE}
-library(readxl)
 kb <- read_excel("C:\\Users\\marco\\Desktop\\STAT 4204\\Project\\keyboard.xlsx")
 
 # Setting factors
@@ -99,8 +159,98 @@ par(mfrow=c(1,3))
 boxplot(`Typing Speed` ~ Operator, data = kb)
 boxplot(`Typing Speed` ~ Order, data = kb)
 boxplot(`Typing Speed` ~ `Keyboard Type`, data = kb)
+
+myfit = lm(`Typing Speed` ~ Operator + Order + `Keyboard Type`, data = kb)
 ```
 
-# Results
+This is the numerical summary of our typing speed:
+
+| Minimum | $1^{st}$ Quartile | Median | $3^{rd}$ Quartile | Maximum |
+|---------|-------------------|--------|-------------------|---------|
+| 69      | 76                | 85.94  | 96.50             | 103     |
+
+## Checking Assumptions
+
+We must check to see if our model assumptions are satisfied before we report our results.
+
+### Constant Vairance
+
+We checked for constant variance by using a residual vs. fitted values plot to see if there are any trends in the data. Furthermore, we used Levene's Test to confirm that our data has constant variance. After viewing the plot and test (Appendix A), we confirmed that our data's variance is constant.
+
+### Normal Distribution
+
+To test whether our data is normally distributed, we created a Q-Q plot and used the Shapiro-Wilk test to determine whether our data is normally distributed. Based on the plot and test (Appendix B), we confirmed that our data is normally distributed.
+
+### Independent Samples
+
+To test whether our data is normally distributed, we created a residuals vs. order plot and used the Durbin-Watson test to determine whether our data is normally distributed. Based on the plot and test (Appendix C), we confirmed that our data is normally distributed.
+
+## Results
+
+Now that our assumptions have been satisfied, we can view our results in an ANOVA table and confirm which treatments are significant and which are not.
+
+\begin{table}[!htbp] \centering 
+  \caption{ANOVA Table} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & Df & Sum Sq & Mean Sq & F value & Pr(\textgreater F) \\ 
+\hline \\[-1.8ex] 
+Operator & $2$ & $2,044.741$ & $1,022.370$ & $40.105$ & $0.00000$ \\ 
+Order & $2$ & $118.741$ & $59.370$ & $2.329$ & $0.123$ \\ 
+Keyboard Type & $2$ & $95.630$ & $47.815$ & $1.876$ & $0.179$ \\ 
+Residuals & $20$ & $509.852$ & $25.493$ & $$ & $$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+Based on the ANOVA Table above, the operator is the only significant effect on an operator's typing speed. The type of keyboard and the keyboard order have no significant effect on the typing speed whatsoever.
 
 # Conclusion
+
+Our experiment asserts that the only significant effect on typing speed
+is the person at the keyboard. None of the keyboard types showed any
+significant change in typing speed, as did the order in which the tests
+were conducted. This is contrary to our initial hypothesis that keyboard type
+would have an effect on typing speed. It is worth noting that this experiment
+only utilized three different operators to conduct the tests with. Improvements
+to this design would want to allow for a greater amount of typists to record
+their typing speed across the keyboards. Ultimately, our experiment asserts 
+that anyone looking to increase their typing speed should not worry too much
+about the keyboards they use, but rather they should seek to improve their
+speed through consistent practice.
+
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\noindent
+
+Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+ R package version 5.2.3. [https://cran.r-project.org/package=stargazer](https://cran.r-project.org/package=stargazer)
+ 
+# Appendix
+
+### Appendix A
+
+```{r, echo = FALSE}
+plot(myfit, 1)
+library(car)
+leveneTest(myfit$residuals ~ factor(kb$`Keyboard Type`))
+```
+
+### Appendix B
+
+```{r, echo = FALSE}
+plot(myfit, 2)
+shapiro.test(myfit$residuals)
+```
+
+### Appendix C
+
+```{r, echo = FALSE}
+plot(myfit$residuals, type="o", xlab="Residual orders", ylab="Residual value")
+abline(0,0, lty=2)
+durbinWatsonTest(myfit)
+```
